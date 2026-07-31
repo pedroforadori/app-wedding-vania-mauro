@@ -6,9 +6,9 @@ import { formatBRL } from "@/lib/format";
 export default async function CheckoutSimuladoPage({
   searchParams,
 }: {
-  searchParams: Promise<{ gift?: string }>;
+  searchParams: Promise<{ gift?: string; guestName?: string; guestMessage?: string }>;
 }) {
-  const { gift: giftId } = await searchParams;
+  const { gift: giftId, guestName, guestMessage } = await searchParams;
   const gift = giftId ? await getGiftById(giftId) : undefined;
 
   return (
@@ -41,6 +41,16 @@ export default async function CheckoutSimuladoPage({
               <p className="font-medium text-secondary">{gift.title}</p>
               <p className="text-sm text-accent">{formatBRL(gift.price)}</p>
             </div>
+          </div>
+        )}
+
+        {guestName && (
+          <div className="mt-6 rounded-xl bg-muted p-4 text-left">
+            <p className="text-xs uppercase tracking-wide text-muted-foreground">De</p>
+            <p className="font-medium text-secondary">{guestName}</p>
+            {guestMessage && (
+              <p className="mt-2 text-sm text-muted-foreground">&quot;{guestMessage}&quot;</p>
+            )}
           </div>
         )}
 

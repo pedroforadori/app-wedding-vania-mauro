@@ -6,3 +6,15 @@ export interface Gift {
   price: number;
   imageUrl: string;
 }
+
+export interface GiftOrder {
+  sessionId: string;
+  giftId: string;
+  giftTitle: string;
+  guestName: string;
+  guestMessage: string | null;
+  /** Centavos, do amount_total do Stripe (compatível com formatBRL). */
+  amount: number;
+  /** Unix timestamp (segundos) — session.created do Stripe. */
+  createdAt: number;
+}

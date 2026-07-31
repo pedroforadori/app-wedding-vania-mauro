@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getGiftById } from "@/lib/gifts-store";
 import { isStripeConfigured, stripe } from "@/lib/stripe";
+import { giftGuestSchema } from "@/lib/validations";
 
 export const runtime = "nodejs";
 
@@ -15,6 +16,18 @@ export async function POST(request: Request) {
     );
   }
 
+  const parsed = giftGuestSchema.safeParse({
+    guestName: body?.guestName,
+    guestMessage: body?.guestMessage,
+  });
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: "Dados inválidos.", fieldErrors: parsed.error.flatten().fieldErrors },
+      { status: 400 }
+    );
+  }
+  const { guestName, guestMessage } = parsed.data;
+
   // O preço nunca vem do client — é sempre relido no servidor, para que o
   // valor pago não possa ser manipulado antes do checkout.
   const gift = await getGiftById(giftId);
@@ -28,10 +41,21 @@ export async function POST(request: Request) {
   const origin = new URL(request.url).origin;
 
   if (!isStripeConfigured() || !stripe) {
+    const params = new URLSearchParams({ gift: gift.id, guestName });
+    if (guestMessage) params.set("guestMessage", guestMessage);
     return NextResponse.json({
-      url: `/checkout-simulado?gift=${gift.id}`,
+      url: `/checkout-simulado?${params.toString()}`,
       simulated: true,
     });
+  }
+
+  const metadata: Record<string, string> = {
+    giftId: gift.id,
+    giftTitle: gift.title,
+    guestName,
+  };
+  if (guestMessage) {
+    metadata.guestMessage = guestMessage;
   }
 
   const session = await stripe.checkout.sessions.create({
@@ -53,7 +77,7 @@ export async function POST(request: Request) {
     ],
     success_url: `${origin}/?gift_status=success#lista-de-presentes`,
     cancel_url: `${origin}/?gift_status=cancelled#lista-de-presentes`,
-    metadata: { giftId: gift.id, giftTitle: gift.title },
+    metadata,
   });
 
   return NextResponse.json({ url: session.url, simulated: false });
