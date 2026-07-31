@@ -5,12 +5,31 @@ import { rsvpSchema } from "@/lib/validations";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
+function formatPhone(value: string) {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length === 0) return "";
+
+  const ddd = digits.slice(0, 2);
+  if (digits.length <= 2) return `(${ddd}`;
+
+  const rest = digits.slice(2);
+  if (rest.length <= 4) return `(${ddd}) ${rest}`;
+
+  const prefixLength = digits.length > 10 ? 5 : 4;
+  return `(${ddd}) ${rest.slice(0, prefixLength)}-${rest.slice(prefixLength)}`;
+}
+
 export default function RsvpForm() {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{ fullName?: string; phone?: string }>({});
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState<string | null>(null);
+
+  const isFullNameValid = fullName.trim().split(/\s+/).filter(Boolean).length >= 2;
+  const phoneDigits = phone.replace(/\D/g, "");
+  const isPhoneValid = phoneDigits.length === 10 || phoneDigits.length === 11;
+  const canSubmit = isFullNameValid && isPhoneValid;
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -85,8 +104,10 @@ export default function RsvpForm() {
         <input
           id="phone"
           type="tel"
+          inputMode="numeric"
           value={phone}
-          onChange={(event) => setPhone(event.target.value)}
+          onChange={(event) => setPhone(formatPhone(event.target.value))}
+          maxLength={16}
           className="mt-2 w-full rounded-lg border border-border bg-white px-4 py-3 text-secondary outline-none focus:border-accent"
           placeholder="(11) 91234-5678"
         />
@@ -97,7 +118,7 @@ export default function RsvpForm() {
 
       <button
         type="submit"
-        disabled={status === "submitting"}
+        disabled={status === "submitting" || !canSubmit}
         className="w-full rounded-full bg-secondary py-3 text-sm uppercase tracking-wide text-primary transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
       >
         {status === "submitting" ? "Enviando..." : "Confirmar presença"}
