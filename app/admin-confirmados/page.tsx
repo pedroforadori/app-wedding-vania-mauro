@@ -19,8 +19,8 @@ function formatPhone(phone: string): string {
 }
 
 export default async function AdminConfirmadosPage() {
-  const guests = getAllRsvps();
-  const total = getRsvpCount();
+  const guests = await getAllRsvps();
+  const total = await getRsvpCount();
 
   return (
     <main className="min-h-screen bg-primary px-6 py-16 md:px-10">

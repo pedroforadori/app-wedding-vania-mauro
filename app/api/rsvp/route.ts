@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { rsvpSchema } from "@/lib/validations";
-import { addRsvp, findByPhone, getAllRsvps, getRsvpCount } from "@/lib/rsvp-store";
+import { addRsvp, getAllRsvps, getRsvpCount } from "@/lib/rsvp-store";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -15,19 +15,19 @@ export async function POST(request: Request) {
 
   const { fullName, phone } = result.data;
 
-  if (findByPhone(phone)) {
-    return NextResponse.json(
-      { error: "Este número de celular já confirmou presença." },
-      { status: 409 }
-    );
-  }
-
-  const entry = addRsvp({
+  const entry = await addRsvp({
     id: crypto.randomUUID(),
     fullName,
     phone,
     confirmedAt: new Date().toISOString(),
   });
+
+  if (!entry) {
+    return NextResponse.json(
+      { error: "Este número de celular já confirmou presença." },
+      { status: 409 }
+    );
+  }
 
   return NextResponse.json({ entry }, { status: 201 });
 }
@@ -42,5 +42,5 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Não autorizado." }, { status: 401 });
   }
 
-  return NextResponse.json({ guests: getAllRsvps(), total: getRsvpCount() });
+  return NextResponse.json({ guests: await getAllRsvps(), total: await getRsvpCount() });
 }
