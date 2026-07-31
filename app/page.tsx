@@ -11,8 +11,8 @@ export default function HomePage() {
       <Header />
       <main>
         <HomeSection />
-        <GiftListSection />
         <RsvpSection />
+        <GiftListSection />
         <GallerySection />
       </main>
       <Footer />
