@@ -1,19 +1,12 @@
-import Image from "next/image";
 import { COUPLE_NAMES, WEDDING_DATE_ISO } from "@/lib/constants";
 import { formatWeddingDate } from "@/lib/format";
 import Countdown from "./Countdown";
+import HeroBackground from "./HeroBackground";
 
 export default function Hero() {
   return (
     <div className="relative flex min-h-screen items-end overflow-hidden">
-      <Image
-        src="/images/capa.jpg"
-        alt="Vania e Mauro"
-        fill
-        priority
-        sizes="(max-width: 768px) 200vw, 100vw"
-        className="object-cover"
-      />
+      <HeroBackground />
       <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-secondary/20 to-secondary/10" />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-20 pt-40 text-center text-primary md:px-10">
