@@ -11,7 +11,7 @@ export default function Hero() {
         alt="Vania e Mauro"
         fill
         priority
-        sizes="100vw"
+        sizes="(max-width: 768px) 200vw, 100vw"
         className="object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-secondary/80 via-secondary/20 to-secondary/10" />
