@@ -7,7 +7,7 @@ export default function Hero() {
   return (
     <div className="relative flex min-h-screen items-end overflow-hidden">
       <Image
-        src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=1920&auto=format&fit=crop"
+        src="/images/capa.jpg"
         alt="Vania e Mauro"
         fill
         priority
