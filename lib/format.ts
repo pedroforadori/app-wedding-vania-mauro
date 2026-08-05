@@ -16,3 +16,10 @@ const dateFormatter = new Intl.DateTimeFormat("pt-BR", {
 export function formatWeddingDate(isoDate: string): string {
   return dateFormatter.format(new Date(isoDate));
 }
+
+export function formatWeddingTime(isoDate: string): string {
+  const date = new Date(isoDate);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  return minutes === 0 ? `${hours}h` : `${hours}h${String(minutes).padStart(2, "0")}`;
+}
