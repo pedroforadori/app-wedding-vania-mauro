@@ -9,7 +9,7 @@ export const NAV_ITEMS = [
 export const COUPLE_NAMES = process.env.NEXT_PUBLIC_COUPLE_NAMES ?? "Vania & Mauro";
 
 export const WEDDING_DATE_ISO =
-  process.env.NEXT_PUBLIC_WEDDING_DATE ?? "2026-10-17T16:00:00-03:00";
+  process.env.NEXT_PUBLIC_WEDDING_DATE ?? "2026-10-17T20:00:00-03:00";
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
