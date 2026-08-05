@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import BackToTop from "@/components/BackToTop";
 import HomeSection from "@/components/home/HomeSection";
 import GiftListSection from "@/components/gift-list/GiftListSection";
 import RsvpSection from "@/components/rsvp/RsvpSection";
@@ -18,6 +19,7 @@ export default function HomePage() {
         <PartySection />
       </main>
       <Footer />
+      <BackToTop />
     </>
   );
 }
