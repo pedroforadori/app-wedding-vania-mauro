@@ -4,7 +4,7 @@ import { formatWeddingDate } from "@/lib/format";
 export default function Footer() {
   return (
     <footer className="border-t border-border bg-muted py-10 text-center">
-      <p className="font-serif text-2xl text-secondary">{COUPLE_NAMES}</p>
+      <p className="font-script text-3xl text-secondary">{COUPLE_NAMES}</p>
       <p className="mt-2 text-sm uppercase tracking-wide text-muted-foreground">
         {formatWeddingDate(WEDDING_DATE_ISO)}
       </p>

@@ -3,6 +3,7 @@
 @theme {
   --color-primary: #faf7f2;
   --color-secondary: #2b2622;
+  --color-ivory: #ede9e3;
   --color-accent: #c9a66b;
   --color-accent-soft: #e4d3b6;
   --color-muted: #f1ece3;
@@ -11,8 +12,9 @@
 }
 
 @theme inline {
-  --font-serif: var(--font-playfair);
-  --font-sans: var(--font-inter);
+  --font-serif: var(--font-quicksand);
+  --font-sans: var(--font-quicksand);
+  --font-script: var(--font-parisienne);
 }
 
 html {

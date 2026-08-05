@@ -44,10 +44,10 @@ export default function Countdown({ targetDate }: { targetDate: string }) {
           key={unit.label}
           className="flex w-16 flex-col items-center rounded-xl border border-primary/30 bg-secondary/30 py-3 backdrop-blur-sm md:w-24 md:py-5"
         >
-          <span className="font-serif text-2xl md:text-4xl">
+          <span className="font-serif text-2xl text-ivory md:text-4xl">
             {unit.value !== undefined ? String(unit.value).padStart(2, "0") : "--"}
           </span>
-          <span className="mt-1 text-[10px] uppercase tracking-widest text-primary/80 md:text-xs">
+          <span className="mt-1 text-[10px] uppercase tracking-widest text-ivory/80 md:text-xs">
             {unit.label}
           </span>
         </div>

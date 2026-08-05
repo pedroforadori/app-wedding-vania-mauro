@@ -25,7 +25,7 @@ export default function Header() {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 md:px-10">
         <a
           href="#home"
-          className="font-serif text-lg tracking-wide text-secondary"
+          className="font-script text-2xl tracking-wide text-secondary"
         >
           {COUPLE_NAMES}
         </a>

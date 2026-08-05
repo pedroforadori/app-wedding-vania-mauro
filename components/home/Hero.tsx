@@ -13,7 +13,7 @@ export default function Hero() {
         <p className="text-xs uppercase tracking-[0.3em] text-primary/80">
           Vamos nos casar
         </p>
-        <h1 className="mt-4 font-serif text-5xl leading-tight md:text-7xl">
+        <h1 className="mt-4 font-script text-6xl leading-tight text-ivory md:text-8xl">
           {COUPLE_NAMES}
         </h1>
         <p className="mt-4 text-sm uppercase tracking-widest text-primary/80 md:text-base">
