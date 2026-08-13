@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   title: "Vania & Mauro | Nosso Casamento",
   description:
     "Acompanhe a nossa história, confirme sua presença e faça parte deste novo capítulo com a gente.",
+  icons: {
+    icon: "/images/wedding.ico",
+    shortcut: "/images/wedding.ico",
+  },
   openGraph: {
     title: "Vania & Mauro | Nosso Casamento",
     description:
