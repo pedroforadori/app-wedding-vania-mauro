@@ -1,38 +1,15 @@
 import Image from "next/image";
 
 const photos = [
-  {
-    id: "1519741497674-611481863552",
-    alt: "Alianças de casamento",
-  },
-  {
-    id: "1606216794074-735e91aa2c92",
-    alt: "Mãos dadas dos noivos",
-  },
-  {
-    id: "1511285560929-80b456fea0bc",
-    alt: "Casal se abraçando",
-  },
-  {
-    id: "1519225421980-715cb0215aed",
-    alt: "Buquê da noiva",
-  },
-  {
-    id: "1519167758481-83f550bb49b3",
-    alt: "Mesa decorada para a celebração",
-  },
-  {
-    id: "1518733057094-95b53143d2a7",
-    alt: "Refúgio no interior para o casal",
-  },
-  {
-    id: "1510812431401-41d2bd2722f3",
-    alt: "Brinde a dois",
-  },
-  {
-    id: "1436491865332-7a61a109cc05",
-    alt: "Aventuras a dois pela estrada",
-  },
+  { id: "1", alt: "Momento do casal 1" },
+  { id: "2", alt: "Momento do casal 2" },
+  { id: "3", alt: "Momento do casal 3" },
+  { id: "4", alt: "Momento do casal 4" },
+  { id: "5", alt: "Momento do casal 5" },
+  { id: "6", alt: "Momento do casal 6" },
+  { id: "7", alt: "Momento do casal 7" },
+  { id: "8", alt: "Momento do casal 8" },
+  { id: "9", alt: "Momento do casal 9" },
 ];
 
 export default function GallerySection() {
@@ -44,7 +21,7 @@ export default function GallerySection() {
             Galeria
           </p>
           <h2 className="mt-4 font-serif text-3xl text-secondary md:text-4xl">
-            Momentos que contam nossa história
+            Um clique do que está por vir
           </h2>
         </div>
 
@@ -56,7 +33,7 @@ export default function GallerySection() {
               style={{ aspectRatio: index % 3 === 0 ? "3 / 4" : "1 / 1" }}
             >
               <Image
-                src={`https://images.unsplash.com/photo-${photo.id}?q=80&w=800&auto=format&fit=crop`}
+                src={`/images/galery-${photo.id}.jpeg`}
                 alt={photo.alt}
                 fill
                 sizes="(min-width: 768px) 33vw, 50vw"
