@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-const IMAGES = ["/images/capa.jpg", "/images/capa-1.jpg", "/images/capa-2.jpg", "/images/capa-3.jpg"];
+const IMAGES = ["/images/capa.jpg"];
 const INTERVAL_MS = 6000;
 
 export default function HeroBackground() {
