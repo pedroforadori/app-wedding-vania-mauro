@@ -3,7 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
+import Counter from "yet-another-react-lightbox/plugins/counter";
 import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/counter.css";
 
 const photos = [
   { id: "1", alt: "Momento do casal 1" },
@@ -60,6 +62,8 @@ export default function GalleryGrid() {
         close={() => setLightboxIndex(null)}
         index={lightboxIndex ?? 0}
         slides={slides}
+        plugins={[Counter]}
+        counter={{ container: { style: { top: "unset", bottom: 0 } } }}
       />
     </>
   );

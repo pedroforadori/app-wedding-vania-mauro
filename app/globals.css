@@ -33,4 +33,5 @@ body {
   --yarl__color_button_active: var(--color-accent);
   --yarl__color_button_disabled: var(--color-muted-foreground);
   --yarl__button_filter: none;
+  --yarl__counter_filter: none;
 }
