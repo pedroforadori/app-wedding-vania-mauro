@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fragment } from "react";
 import { getAllRsvps } from "@/lib/rsvp-store";
+import { formatPhone } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -9,16 +10,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-function formatPhone(phone: string): string {
-  if (phone.length === 11) {
-    return `(${phone.slice(0, 2)}) ${phone.slice(2, 7)}-${phone.slice(7)}`;
-  }
-  if (phone.length === 10) {
-    return `(${phone.slice(0, 2)}) ${phone.slice(2, 6)}-${phone.slice(6)}`;
-  }
-  return phone;
-}
-
 export default async function AdminConfirmadosPage() {
   const entries = await getAllRsvps();
   const totalGuests = entries.reduce((sum, entry) => sum + entry.guests.length, 0);
@@ -26,12 +17,22 @@ export default async function AdminConfirmadosPage() {
   return (
     <main className="min-h-screen bg-primary px-6 py-16 md:px-10">
       <div className="mx-auto max-w-3xl">
-        <h1 className="font-serif text-3xl text-secondary">
-          Convidados Confirmados
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Total confirmado: <span className="font-medium text-accent">{totalGuests}</span>
-        </p>
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 className="font-serif text-3xl text-secondary">
+              Convidados Confirmados
+            </h1>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Total confirmado: <span className="font-medium text-accent">{totalGuests}</span>
+            </p>
+          </div>
+          <a
+            href="/admin-confirmados/exportar"
+            className="inline-block rounded-full bg-secondary px-6 py-3 text-sm uppercase tracking-wide text-primary transition-colors hover:bg-accent"
+          >
+            Exportar Excel
+          </a>
+        </div>
 
         <div className="mt-8 overflow-x-auto rounded-2xl border border-border bg-white">
           <table className="w-full min-w-[480px] text-left text-sm">
