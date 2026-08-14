@@ -37,8 +37,8 @@ export default async function AdminPresentesPage() {
               {orders.length} {orders.length === 1 ? "presente" : "presentes"}
             </p>
 
-            <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-white">
-              <table className="w-full text-left text-sm">
+            <div className="mt-8 overflow-x-auto rounded-2xl border border-border bg-white">
+              <table className="w-full min-w-[640px] text-left text-sm">
                 <thead className="bg-muted text-xs uppercase tracking-wide text-muted-foreground">
                   <tr>
                     <th className="px-5 py-3">Presente</th>
