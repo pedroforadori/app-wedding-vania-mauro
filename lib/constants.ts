@@ -24,4 +24,4 @@ export const WEDDING_VENUE_MAPS_URL =
     "Buffet Splash, Rua Nova Jerusalem, 38, Jardim Analia Franco, São Paulo"
   );
 
-export const WEDDING_DRESS_CODE = "Traje social completo";
+export const WEDDING_DRESS_CODE = "Social";

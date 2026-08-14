@@ -26,3 +26,11 @@ body {
   color: var(--color-secondary);
   font-family: var(--font-sans);
 }
+
+.yarl__portal {
+  --yarl__color_backdrop: var(--color-secondary);
+  --yarl__color_button: var(--color-accent-soft);
+  --yarl__color_button_active: var(--color-accent);
+  --yarl__color_button_disabled: var(--color-muted-foreground);
+  --yarl__button_filter: none;
+}
