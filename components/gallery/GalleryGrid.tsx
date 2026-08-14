@@ -15,6 +15,9 @@ const photos = [
   { id: "7", alt: "Momento do casal 7" },
   { id: "8", alt: "Momento do casal 8" },
   { id: "9", alt: "Momento do casal 9" },
+  { id: "10", alt: "Momento do casal 10" },
+  { id: "11", alt: "Momento do casal 11" },
+  { id: "12", alt: "Momento do casal 12" },
 ];
 
 const photoSrc = (id: string) => `/images/galery-${id}.jpeg`;
