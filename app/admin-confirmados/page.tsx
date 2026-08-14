@@ -22,7 +22,6 @@ function formatPhone(phone: string): string {
 export default async function AdminConfirmadosPage() {
   const entries = await getAllRsvps();
   const totalGuests = entries.reduce((sum, entry) => sum + entry.guests.length, 0);
-  const totalSubmissions = entries.length;
 
   return (
     <main className="min-h-screen bg-primary px-6 py-16 md:px-10">
@@ -31,9 +30,7 @@ export default async function AdminConfirmadosPage() {
           Convidados Confirmados
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Total confirmado: <span className="font-medium text-accent">{totalGuests}</span>{" "}
-          convidados · {totalSubmissions}{" "}
-          {totalSubmissions === 1 ? "confirmação" : "confirmações"}
+          Total confirmado: <span className="font-medium text-accent">{totalGuests}</span>
         </p>
 
         <div className="mt-8 overflow-x-auto rounded-2xl border border-border bg-white">
