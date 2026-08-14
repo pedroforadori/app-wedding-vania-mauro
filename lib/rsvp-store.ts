@@ -32,9 +32,30 @@ function getRedis(): Redis {
 
 const GUESTS_KEY = "rsvp:guests";
 
+/** Formato usado antes da confirmação passar a aceitar múltiplos nomes por celular. */
+type LegacyRsvpEntry = {
+  id: string;
+  fullName: string;
+  phone: string;
+  confirmedAt: string;
+};
+
+/** Normaliza entradas gravadas no formato antigo (`fullName` único) para `guests[]`. */
+function normalizeEntry(raw: RsvpEntry | LegacyRsvpEntry): RsvpEntry {
+  if (Array.isArray((raw as RsvpEntry).guests)) return raw as RsvpEntry;
+
+  const legacy = raw as LegacyRsvpEntry;
+  return {
+    id: legacy.id,
+    phone: legacy.phone,
+    confirmedAt: legacy.confirmedAt,
+    guests: [{ fullName: legacy.fullName, isPlusOne: false }],
+  };
+}
+
 export async function findByPhone(phone: string): Promise<RsvpEntry | undefined> {
-  const entry = await getRedis().hget<RsvpEntry>(GUESTS_KEY, phone);
-  return entry ?? undefined;
+  const entry = await getRedis().hget<RsvpEntry | LegacyRsvpEntry>(GUESTS_KEY, phone);
+  return entry ? normalizeEntry(entry) : undefined;
 }
 
 /** Retorna a entrada salva, ou `null` se este telefone já tinha confirmado (inserção atômica). */
@@ -44,11 +65,11 @@ export async function addRsvp(entry: RsvpEntry): Promise<RsvpEntry | null> {
 }
 
 export async function getAllRsvps(): Promise<RsvpEntry[]> {
-  const all = await getRedis().hgetall<Record<string, RsvpEntry>>(GUESTS_KEY);
+  const all = await getRedis().hgetall<Record<string, RsvpEntry | LegacyRsvpEntry>>(GUESTS_KEY);
   if (!all) return [];
-  return Object.values(all).sort(
-    (a, b) => new Date(a.confirmedAt).getTime() - new Date(b.confirmedAt).getTime()
-  );
+  return Object.values(all)
+    .map(normalizeEntry)
+    .sort((a, b) => new Date(a.confirmedAt).getTime() - new Date(b.confirmedAt).getTime());
 }
 
 export async function getRsvpCount(): Promise<number> {

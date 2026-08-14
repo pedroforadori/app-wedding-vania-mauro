@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { rsvpSchema } from "@/lib/validations";
-import { addRsvp, getAllRsvps, getRsvpCount } from "@/lib/rsvp-store";
+import { addRsvp, getAllRsvps } from "@/lib/rsvp-store";
+import type { RsvpGuest } from "@/types/rsvp";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -13,11 +14,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const { fullName, phone } = result.data;
+  const { guests: names, phone } = result.data;
+  const guests: RsvpGuest[] = names.map((fullName, index) => ({
+    fullName,
+    isPlusOne: index !== 0,
+  }));
 
   const entry = await addRsvp({
     id: crypto.randomUUID(),
-    fullName,
+    guests,
     phone,
     confirmedAt: new Date().toISOString(),
   });
@@ -42,5 +47,12 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Não autorizado." }, { status: 401 });
   }
 
-  return NextResponse.json({ guests: await getAllRsvps(), total: await getRsvpCount() });
+  const entries = await getAllRsvps();
+  const totalGuests = entries.reduce((sum, entry) => sum + entry.guests.length, 0);
+
+  return NextResponse.json({
+    guests: entries,
+    totalSubmissions: entries.length,
+    totalGuests,
+  });
 }

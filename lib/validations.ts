@@ -1,11 +1,16 @@
 import { z } from "zod";
 
 export const rsvpSchema = z.object({
-  fullName: z
-    .string()
-    .trim()
-    .min(3, "Informe seu nome completo")
-    .max(120, "Nome muito longo"),
+  guests: z
+    .array(
+      z
+        .string()
+        .trim()
+        .min(3, "Informe o nome completo")
+        .max(120, "Nome muito longo")
+    )
+    .min(1, "Informe ao menos um nome")
+    .max(30, "Número de convidados excedido"),
   phone: z
     .string()
     .trim()
