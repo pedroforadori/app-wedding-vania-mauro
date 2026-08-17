@@ -9,8 +9,7 @@ const gifts: Gift[] = [
   {
     id: "presente-teste",
     title: "Presente teste",
-    description:
-      "Presente Teste",
+    description: "Presente Teste",
     price: 100,
     imageUrl: unsplash("1509440159596-0249088772ff"),
   },
