@@ -7,13 +7,6 @@ function unsplash(id: string) {
 
 const gifts: Gift[] = [
   {
-    id: "presente-teste",
-    title: "Presente teste",
-    description: "Presente Teste",
-    price: 100,
-    imageUrl: unsplash("1509440159596-0249088772ff"),
-  },
-  {
     id: "cafe-da-manha",
     title: "Café da manhã especial em uma padaria tradicional",
     description:
