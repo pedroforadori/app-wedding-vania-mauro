@@ -6,8 +6,15 @@ import type { Gift } from "@/types/gift";
 import { formatBRL } from "@/lib/format";
 import { giftGuestSchema } from "@/lib/validations";
 
-export default function GiftCard({ gift }: { gift: Gift }) {
+export default function GiftCard({
+  gift,
+  pixEnabled = false,
+}: {
+  gift: Gift;
+  pixEnabled?: boolean;
+}) {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "pix">("card");
   const [guestName, setGuestName] = useState("");
   const [guestMessage, setGuestMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{
@@ -34,7 +41,8 @@ export default function GiftCard({ gift }: { gift: Gift }) {
 
     setIsLoading(true);
     try {
-      const response = await fetch("/api/checkout", {
+      const endpoint = paymentMethod === "pix" ? "/api/checkout-pix" : "/api/checkout";
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -44,6 +52,15 @@ export default function GiftCard({ gift }: { gift: Gift }) {
         }),
       });
       const data = await response.json();
+
+      if (paymentMethod === "pix") {
+        if (!response.ok || !data.orderId) {
+          throw new Error(data.error ?? "Não foi possível gerar o Pix.");
+        }
+        window.location.href = `/pagamento-pix/${data.orderId}`;
+        return;
+      }
+
       if (!response.ok || !data.url) {
         throw new Error(data.error ?? "Não foi possível iniciar o checkout.");
       }
@@ -86,6 +103,33 @@ export default function GiftCard({ gift }: { gift: Gift }) {
           </button>
         ) : (
           <form onSubmit={handleSubmit} className="mt-4 space-y-3">
+            {pixEnabled && (
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("card")}
+                  className={`flex-1 rounded-full border py-2 text-xs uppercase tracking-wide transition-colors ${
+                    paymentMethod === "card"
+                      ? "border-accent bg-accent text-primary"
+                      : "border-border text-secondary hover:bg-muted"
+                  }`}
+                >
+                  Cartão
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod("pix")}
+                  className={`flex-1 rounded-full border py-2 text-xs uppercase tracking-wide transition-colors ${
+                    paymentMethod === "pix"
+                      ? "border-accent bg-accent text-primary"
+                      : "border-border text-secondary hover:bg-muted"
+                  }`}
+                >
+                  Pix
+                </button>
+              </div>
+            )}
+
             <div>
               <label
                 htmlFor={`${gift.id}-guestName`}
@@ -141,7 +185,11 @@ export default function GiftCard({ gift }: { gift: Gift }) {
                 disabled={isLoading}
                 className="flex-1 rounded-full bg-secondary py-2.5 text-sm uppercase tracking-wide text-primary transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {isLoading ? "Redirecionando..." : "Confirmar presente"}
+                {isLoading
+                  ? paymentMethod === "pix"
+                    ? "Gerando Pix..."
+                    : "Redirecionando..."
+                  : "Confirmar presente"}
               </button>
             </div>
           </form>
