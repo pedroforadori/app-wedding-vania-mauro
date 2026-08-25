@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { revertPixOrder } from "@/lib/pix-orders";
+import { deletePixOrder } from "@/lib/pix-orders";
 
 export const runtime = "nodejs";
 
-export async function POST(
+export async function DELETE(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
@@ -15,14 +15,14 @@ export async function POST(
   }
 
   const { id } = await params;
-  const order = await revertPixOrder(id);
+  const removed = await deletePixOrder(id);
 
-  if (!order) {
+  if (!removed) {
     return NextResponse.json(
       { error: "Pedido Pix não encontrado." },
       { status: 404 }
     );
   }
 
-  return NextResponse.json({ order });
+  return NextResponse.json({ success: true });
 }

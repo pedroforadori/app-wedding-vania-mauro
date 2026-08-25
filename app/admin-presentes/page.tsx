@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getGiftOrders, mergeOrders } from "@/lib/gift-orders";
 import { getAllPixOrders } from "@/lib/pix-orders";
 import { formatBRL, formatDateTime } from "@/lib/format";
-import ConfirmPixOrderButton from "@/components/admin-presentes/ConfirmPixOrderButton";
+import PixOrderActions from "@/components/admin-presentes/PixOrderActions";
 
 export const dynamic = "force-dynamic";
 
@@ -95,10 +95,10 @@ export default async function AdminPresentesPage() {
                         </td>
                         <td className="px-5 py-3">
                           {order.method === "pix" && order.pixOrderId && (
-                            <ConfirmPixOrderButton
+                            <PixOrderActions
                               orderId={order.pixOrderId}
                               adminSecret={adminSecret}
-                              action={order.status === "pendente" ? "confirm" : "revert"}
+                              status={order.status === "pendente" ? "pendente" : "confirmado"}
                             />
                           )}
                         </td>
