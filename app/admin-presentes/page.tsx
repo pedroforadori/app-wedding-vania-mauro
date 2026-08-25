@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AdminPresentesPage() {
+  const adminSecret = process.env.ADMIN_API_SECRET ?? "";
   const [{ orders: stripeOrders, error }, pixOrders] = await Promise.all([
     getGiftOrders(),
     getAllPixOrders(),
@@ -96,7 +97,10 @@ export default async function AdminPresentesPage() {
                           {order.method === "pix" &&
                             order.status === "pendente" &&
                             order.pixOrderId && (
-                              <ConfirmPixOrderButton orderId={order.pixOrderId} />
+                              <ConfirmPixOrderButton
+                                orderId={order.pixOrderId}
+                                adminSecret={adminSecret}
+                              />
                             )}
                         </td>
                       </tr>
