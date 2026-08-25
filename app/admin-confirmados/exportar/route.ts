@@ -1,6 +1,6 @@
 import ExcelJS from "exceljs";
 import { getAllRsvps } from "@/lib/rsvp-store";
-import { formatPhone } from "@/lib/format";
+import { formatPhone, formatDateTime } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -24,7 +24,7 @@ export async function GET() {
         nome: guest.fullName,
         tipo: guest.isPlusOne ? "Acompanhante" : "Titular",
         celular: formatPhone(entry.phone),
-        confirmadoEm: new Date(entry.confirmedAt).toLocaleString("pt-BR"),
+        confirmadoEm: formatDateTime(entry.confirmedAt),
       });
     }
   }

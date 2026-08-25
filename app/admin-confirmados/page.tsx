@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fragment } from "react";
 import { getAllRsvps } from "@/lib/rsvp-store";
-import { formatPhone } from "@/lib/format";
+import { formatPhone, formatDateTime } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -57,7 +57,7 @@ export default async function AdminConfirmadosPage() {
                       <td className="px-5 py-3 text-secondary">{entry.guests[0].fullName}</td>
                       <td className="px-5 py-3 text-secondary">{formatPhone(entry.phone)}</td>
                       <td className="px-5 py-3 text-muted-foreground">
-                        {new Date(entry.confirmedAt).toLocaleString("pt-BR")}
+                        {formatDateTime(entry.confirmedAt)}
                       </td>
                     </tr>
                     {entry.guests.slice(1).map((guest, index) => (

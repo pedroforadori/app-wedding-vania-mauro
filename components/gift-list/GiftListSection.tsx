@@ -1,10 +1,12 @@
 import { Suspense } from "react";
 import { getGifts } from "@/lib/gifts-store";
+import { isPixConfigured } from "@/lib/pix-config";
 import GiftGrid from "./GiftGrid";
 import GiftsSkeleton from "./GiftsSkeleton";
 
 export default function GiftListSection() {
   const giftsPromise = getGifts();
+  const pixEnabled = isPixConfigured();
 
   return (
     <section id="lista-de-presentes" className="scroll-mt-24 bg-muted">
@@ -23,7 +25,7 @@ export default function GiftListSection() {
 
         <div className="mt-14">
           <Suspense fallback={<GiftsSkeleton />}>
-            <GiftGrid giftsPromise={giftsPromise} />
+            <GiftGrid giftsPromise={giftsPromise} pixEnabled={pixEnabled} />
           </Suspense>
         </div>
       </div>
