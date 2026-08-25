@@ -20,7 +20,7 @@ const gifts: Gift[] = [
     description:
       "Uma tarde ao ar livre, manta no chão, cesta cheia e tempo de sobra um para o outro.",
     price: 15000,
-    imageUrl: unsplash("1470337458703-46ad1756a187"),
+    imageUrl: unsplash("1630276740239-5d9c23d49531"),
   },
   {
     id: "cinema-jantar",
@@ -44,7 +44,7 @@ const gifts: Gift[] = [
     description:
       "Massas, molhos de dar água na boca e aquele clima aconchegante de trattoria.",
     price: 30000,
-    imageUrl: unsplash("1498654896293-37aacf113fd9"),
+    imageUrl: unsplash("1662197480393-2a82030b7b83"),
   },
   {
     id: "aula-culinaria",
@@ -76,7 +76,7 @@ const gifts: Gift[] = [
     description:
       "Sol, água e horizonte — um passeio para curtir a paisagem e a companhia um do outro.",
     price: 50000,
-    imageUrl: unsplash("1544551763-46a013bb70d5"),
+    imageUrl: unsplash("1520404508792-8e038a1f4fbc"),
   },
   {
     id: "fds-pousada",
