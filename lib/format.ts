@@ -34,6 +34,20 @@ export function formatWeddingTime(isoDate: string): string {
   return minutes === "00" ? `${hours}h` : `${hours}h${minutes}`;
 }
 
+const dateTimeFormatter = new Intl.DateTimeFormat("pt-BR", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+  hourCycle: "h23",
+  timeZone: WEDDING_TIME_ZONE,
+});
+
+export function formatDateTime(isoDate: string): string {
+  return dateTimeFormatter.format(new Date(isoDate));
+}
+
 export function formatPhone(phone: string): string {
   if (phone.length === 11) {
     return `(${phone.slice(0, 2)}) ${phone.slice(2, 7)}-${phone.slice(7)}`;

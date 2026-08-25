@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getGiftOrders, mergeOrders } from "@/lib/gift-orders";
 import { getAllPixOrders } from "@/lib/pix-orders";
-import { formatBRL } from "@/lib/format";
+import { formatBRL, formatDateTime } from "@/lib/format";
 import ConfirmPixOrderButton from "@/components/admin-presentes/ConfirmPixOrderButton";
 
 export const dynamic = "force-dynamic";
@@ -91,7 +91,7 @@ export default async function AdminPresentesPage() {
                           {order.status === "pago" ? "Pago" : "Pendente"}
                         </td>
                         <td className="px-5 py-3 text-muted-foreground">
-                          {new Date(order.createdAt).toLocaleString("pt-BR")}
+                          {formatDateTime(order.createdAt)}
                         </td>
                         <td className="px-5 py-3">
                           {order.method === "pix" &&
