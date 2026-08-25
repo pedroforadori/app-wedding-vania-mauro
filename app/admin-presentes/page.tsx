@@ -94,14 +94,13 @@ export default async function AdminPresentesPage() {
                           {formatDateTime(order.createdAt)}
                         </td>
                         <td className="px-5 py-3">
-                          {order.method === "pix" &&
-                            order.status === "pendente" &&
-                            order.pixOrderId && (
-                              <ConfirmPixOrderButton
-                                orderId={order.pixOrderId}
-                                adminSecret={adminSecret}
-                              />
-                            )}
+                          {order.method === "pix" && order.pixOrderId && (
+                            <ConfirmPixOrderButton
+                              orderId={order.pixOrderId}
+                              adminSecret={adminSecret}
+                              action={order.status === "pendente" ? "confirm" : "revert"}
+                            />
+                          )}
                         </td>
                       </tr>
                     ))

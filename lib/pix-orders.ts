@@ -55,3 +55,18 @@ export async function confirmPixOrder(id: string): Promise<PixOrder | null> {
   await getRedis().hset(ORDERS_KEY, { [id]: updated });
   return updated;
 }
+
+/** Idempotente: se já estiver "pendente", retorna sem reescrever. */
+export async function revertPixOrder(id: string): Promise<PixOrder | null> {
+  const order = await getPixOrder(id);
+  if (!order) return null;
+  if (order.status === "pendente") return order;
+
+  const updated: PixOrder = {
+    ...order,
+    status: "pendente",
+    confirmedAt: null,
+  };
+  await getRedis().hset(ORDERS_KEY, { [id]: updated });
+  return updated;
+}
