@@ -20,7 +20,7 @@ const gifts: Gift[] = [
     description:
       "Uma tarde ao ar livre, manta no chão, cesta cheia e tempo de sobra um para o outro.",
     price: 15000,
-    imageUrl: unsplash("1630276740239-5d9c23d49531"),
+    imageUrl: unsplash("1647235639994-00373cf008a6"),
   },
   {
     id: "cinema-jantar",
