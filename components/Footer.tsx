@@ -12,6 +12,14 @@ export default function Footer() {
         Obrigado por fazer parte da nossa história. Mal podemos esperar para
         celebrar esse dia com você.
       </p>
+      <a
+        href="https://wa.me/5511981024517"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-6 inline-block text-xs text-muted-foreground underline hover:text-secondary"
+      >
+        Desenvolvido por Penne · Faça o site do seu casamento conosco
+      </a>
     </footer>
   );
 }
