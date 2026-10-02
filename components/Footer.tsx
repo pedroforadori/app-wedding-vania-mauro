@@ -13,7 +13,7 @@ export default function Footer() {
         celebrar esse dia com você.
       </p>
       <a
-        href="https://portfolio-penne.vercel.app/"
+        href="https://www.pennecasamentos.com.br/"
         target="_blank"
         rel="noopener"
         className="mt-6 inline-block text-xs text-muted-foreground underline hover:text-secondary"
